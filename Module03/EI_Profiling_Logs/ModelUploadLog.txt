@@ -1,0 +1,9 @@
+Scheduling job in cluster...
+Container image pulled!
+Job started
+Initializing job pod...
+Initializing job pod OK (in 464ms.)
+
+Reading model info...
+Reading model info OK
+
