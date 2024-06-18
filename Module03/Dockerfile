@@ -25,6 +25,13 @@ RUN npm install -g edge-impulse-cli
 # Install jupyterlab
 RUN pip3 install jupyterlab
 
+# Install Packages to export Jupyter Notebooks to PDF
+RUN apt-get install -y texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-generic-recommended \
+    pandoc
+
+
 # Install jupyterlab config file
 COPY jupyter_notebook_config.py /root/.jupyter/
 
