@@ -14,6 +14,13 @@ RUN apt update && apt install -y python3 python3-pip
 # Install tensorflow
 RUN pip3 install tensorflow
 
+# Install npm
+RUN apt install npm -y
+
+# Install nodejs
+RUN apt install nodejs -y
+
+RUN npm install -g edge-impulse-cli
 
 # Install jupyterlab
 RUN pip3 install jupyterlab
