@@ -16,6 +16,6 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "Rebuilding the container"
-    docker build . -t module03-model --no-cache
+    docker build . -t module03 --no-cache
 fi
-docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v /home/adam/GitRepos/ITAI-3377/Module03/notebooks:/root/notebooks module03-model
+docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v /home/adam/GitRepos/ITAI-3377/Module03/notebooks:/root/notebooks module03

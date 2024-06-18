@@ -9,16 +9,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get -y update && apt-get -y upgrade
 
 # Install python3 and pip
-RUN apt update && apt install -y python3 python3-pip
+RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Install tensorflow
 RUN pip3 install tensorflow
 
 # Install npm
-RUN apt install npm -y
+RUN apt-get install npm -y
 
 # Install nodejs
-RUN apt install nodejs -y
+RUN apt-get install nodejs -y
 
 RUN npm install -g edge-impulse-cli
 
