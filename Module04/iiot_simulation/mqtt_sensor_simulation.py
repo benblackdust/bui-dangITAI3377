@@ -15,4 +15,6 @@ def simulate_sensor_data():
         time.sleep(1) 
         client = mqtt.Client() 
         client.connect(broker, port) 
-        simulate_sensor_data()
+
+
+simulate_sensor_data()
