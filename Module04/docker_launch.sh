@@ -23,5 +23,6 @@ then
     docker build "$currentPath" -t module04
 fi
 
+# Added -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix to the docker run command to enable GUI
 # Run the Docker container with the dynamic path
-docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v "$currentPath/iiot_simulation:/root/iiot_simulation" module04
+docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v "$currentPath/iiot_simulation:/root/iiot_simulation" --network="host" -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix module04
