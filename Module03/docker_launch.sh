@@ -20,7 +20,7 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "Rebuilding the container"
-    docker build "$currentPath" -t module03 --no-cache
+    docker build "$currentPath" -t module03
 fi
 
 # Run the Docker container with the dynamic path
