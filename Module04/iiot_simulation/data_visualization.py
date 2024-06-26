@@ -6,9 +6,16 @@ from datetime import datetime
 data = [] 
 
 
+# Added to get additional information for troubleshooting the connection
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+
+
 def on_message(client, userdata, message): 
-    payload = str(message.payload.decode("utf-8")) 
+    print("Message received")
+    payload = str(message.payload.decode())
     data.append((datetime.now(), payload)) 
+    print("Checking Data size: ", len(data))
     if len(data) > 100: 
         data.pop(0) 
         df = pd.DataFrame(data, columns=["timestamp", "sensor_data"]) 
@@ -22,11 +29,13 @@ def on_message(client, userdata, message):
         plt.pause(0.1) 
 
 client = mqtt.Client() 
-client.connect("localhost", 1883) 
-client.subscribe("sensor/data") 
+client.on_connect = on_connect
 client.on_message = on_message 
+
+client.connect("localhost", 1883, 60) 
+client.subscribe("sensor/data") 
 client.loop_start() 
 
-plt.ion() 
-plt.figure() 
-plt.show()
+#plt.ion() 
+#plt.figure() 
+#plt.show()

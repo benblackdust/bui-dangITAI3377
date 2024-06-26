@@ -1,49 +1,53 @@
 import paho.mqtt.client as mqtt
-import pandas as pd
-import matplotlib.pyplot as plt
-from datetime import datetime
+import pandas as pd 
+import matplotlib.pyplot as plt 
+from datetime import datetime 
+import time
+
 
 data = []
 
-def on_message(client, userdata, message):
-    print("Message received:")
-    payload = str(message.payload.decode("utf-8"))
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+    client.subscribe("sensor/data")
+
+def on_message(client, userdata, msg):
+    print(f"Received '{msg.payload.decode()}' from '{msg.topic}'")
+    payload = str(msg.payload.decode())
     data.append((datetime.now(), payload))
-    print("Checking Data size: ", len(data))
     if len(data) > 100:
         data.pop(0)
-    
-    # Converting data list to DataFrame for processing
-    df = pd.DataFrame(data, columns=["timestamp", "sensor_data"])
-    df["temperature"] = df["sensor_data"].apply(lambda x: eval(x)["temperature"])
-    df["humidity"] = df["sensor_data"].apply(lambda x: eval(x)["humidity"])
+        df = pd.DataFrame(data, columns=["timestamp", "sensor_data"])
+        df["temperature"] = df["sensor_data"].apply(lambda x: eval(x)["temperature"])                                
+        df["humidity"] = df["sensor_data"].apply(lambda x: eval(x)["humidity"]) 
+        plt.clf() 
+        plt.plot(df["timestamp"], df["temperature"], label="Temperature") 
+        plt.plot(df["timestamp"], df["humidity"], label="Humidity") 
+        plt.legend() 
+        plt.draw() 
+        plt.pause(0.1) 
 
-    print("Dataframe:")
-    print(df)
-    
-    plt.clf()  # Clear the current figure
-    plt.plot(df["timestamp"], df["temperature"], label="Temperature")
-    plt.plot(df["timestamp"], df["humidity"], label="Humidity")
-    plt.legend()
-    plt.draw()
-    plt.pause(0.1)  # Pause briefly to update the plot
 
-# Setting up the MQTT client
 client = mqtt.Client()
-print("Connecting to MQTT broker...")
-client.on_message = on_message  # Register the message callback
-client.connect("localhost", 1883)  # Connect to the MQTT broker
-client.subscribe("sensor/data")  # Subscribe to the sensor data topic
+client.on_connect = on_connect
+client.on_message = on_message
 
-plt.ion()  # Turn on interactive plotting
-plt.figure()  # Create a new figure
+client.connect("localhost", 1883, 60)
 
-client.loop_start()  # Start the network loop in a non-blocking way
+client.loop_start()
+# Run for some time to receive messages
+time.sleep(20)
 
-# Use try-except to keep the plot window open until manually closed
-try:
-    plt.show()
-except KeyboardInterrupt:
-    print("Plotting stopped by user.")
 
-client.loop_stop()  # Stop the MQTT loop when done
+client.loop_stop()  # Stop the loop
+client.disconnect()  # Disconnect from the broker
+
+
+plt.ion()
+plt.figure()
+plt.show()
+
+# Run for some time to see the plot 
+time.sleep(20)
+
+plt.close()
