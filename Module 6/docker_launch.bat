@@ -12,10 +12,10 @@ echo "Current path: %currentPath%"
 :: Ask the user if they want to rebuild the Docker container
 set /p rebuild="Do you want to rebuild the Docker container? (Y/N): "
 if /i "%rebuild%"=="Y" (
-    docker build . -t module04
+    docker build . -t module06
 )
 
 :: Run the Docker container with the dynamic path
-docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v "%currentPath%\iiot_simulation:/root/iiot_simulation" module04
+docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v "%currentPath%\iiot_simulation:/root/iiot_simulation" module06
 
 endlocal

@@ -19,20 +19,18 @@ RUN apt-get install -y \
 RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Install tensorflow
-RUN pip3 install tensorflow
+RUN pip3 install tensorflow matplotlib seaborn
 
 # Required Python Packages
-RUN pip3 install pandas numpy paho-mqtt aiocoap asyncua matplotlib
+RUN pip3 install nixtla pandas numpy scikit-learn tensorflow
 
-# Install Mosquitto MQTT Broker
-RUN apt-get install -y mosquitto
 
 # Install jupyterlab
 RUN pip3 install jupyterlab
 
 
 WORKDIR /workspace
-EXPOSE 1883
+EXPOSE 8888
 
-# Start bash
-CMD ["/bin/bash"]
+# Start JupyterLab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--notebook-dir=/root/notebooks", "--NotebookApp.token=''", "--NotebookApp.password=''"]
