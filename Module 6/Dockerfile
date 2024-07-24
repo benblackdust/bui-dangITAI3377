@@ -22,8 +22,10 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 RUN pip3 install tensorflow matplotlib seaborn
 
 # Required Python Packages
-RUN pip3 install nixtla pandas numpy scikit-learn tensorflow
+RUN pip3 install  pandas numpy scikit-learn tensorflow
 
+# Install nixtla packages
+RUN pip3 install nixtla[all]
 
 # Install jupyterlab
 RUN pip3 install jupyterlab
