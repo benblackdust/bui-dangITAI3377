@@ -16,6 +16,6 @@ if /i "%rebuild%"=="Y" (
 )
 
 :: Run the Docker container with the dynamic path
-docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v "%currentPath%\iiot_simulation:/root/iiot_simulation" module06
+docker run -it --rm --gpus=all -p 8888:8888 -p 5000:5000 -v "%currentPath%\notebooks:/root/notebooks" module06
 
 endlocal
