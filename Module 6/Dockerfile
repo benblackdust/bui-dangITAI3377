@@ -12,7 +12,10 @@ RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Install tensorflow
-RUN pip3 install tensorflow matplotlib seaborn
+RUN pip3 install tensorflow tensorrt
+
+# Install matplot and seaborn
+RUN pip3 install matplotlib seaborn
 
 # Required Python Packages
 RUN pip3 install  pandas numpy scikit-learn tensorflow
