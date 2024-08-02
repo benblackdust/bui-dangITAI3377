@@ -14,22 +14,14 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 # Install tensorflow
 RUN pip3 install tensorflow
 
-# Install npm
-RUN apt-get install npm -y
-
-# Install nodejs
-RUN apt-get install nodejs -y
-
-RUN npm install -g edge-impulse-cli
-
 # Install jupyterlab
 RUN pip3 install jupyterlab
 
 # Install Packages to export Jupyter Notebooks to PDF
-RUN apt-get install -y texlive-xetex \
-    texlive-fonts-recommended \
-    texlive-generic-recommended \
-    pandoc
+# RUN apt-get install -y texlive-xetex \
+#    texlive-fonts-recommended \
+#    #texlive-generic-recommended \
+#    pandoc
 
 
 # Install jupyterlab config file
