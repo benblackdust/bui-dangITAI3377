@@ -18,7 +18,7 @@ RUN pip3 install tensorflow tensorrt
 RUN pip3 install matplotlib seaborn
 
 # Required Python Packages
-RUN pip3 install  pandas numpy scikit-learn tensorflow
+RUN pip3 install pandas numpy scikit-learn
 
 # Install nixtla packages
 RUN pip3 install nixtla[all]
